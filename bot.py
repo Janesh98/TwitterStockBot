@@ -1,14 +1,19 @@
+import os
 from pytwitter import Api
 from time import sleep
 import datetime
 import alpaca_trade_api as tradeapi
+from dotenv import load_dotenv
 
-API_KEY = "PK5OQ1A7LI8MSHY7ZF62"
-API_SECRET = "l2vt5OacKFPhujLMUE2eodgY92nwCiaUDh8SQXE2"
+load_dotenv()
+
+BEARER_TOKEN = os.environ['BEARER_TOKEN']
+API_KEY = os.environ['API_KEY']
+API_SECRET = os.environ['API_SECRET']
 APCA_API_BASE_URL = "https://paper-api.alpaca.markets"
 
 alpaca = tradeapi.REST(API_KEY, API_SECRET, APCA_API_BASE_URL, 'v2')
-api = Api(bearer_token="AAAAAAAAAAAAAAAAAAAAAGwBQAEAAAAAfqiCCJUIDzWtfXY3FxwVlzth660%3DhGUPOLWPjAlXYJChneza8zRFnYBCGxwQEvSmrhRWsOe5iC3a8Z")
+api = Api(bearer_token=BEARER_TOKEN)
 stockTweetsAccountID = "1388217130709962753"
 start_time = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
 
@@ -38,7 +43,7 @@ def analyse(s):
     stop_loss = s[14].split("\n")[0][1:].strip()
 
     # submitOrder('TSLA', 'buy', '1', '1000.0', '69.69')
-    submitOrder(ticker, 'buy', '100', sell_target, stop_loss)
+    submitOrder(ticker, 'buy', '1000', sell_target, stop_loss)
 
 
 def checkTweets():
@@ -75,14 +80,14 @@ def awaitMarketOpen():
 
 
 # Submit an order if quantity is above 0.
-def submitOrder(ticker, side, qty, take_profit, stop_loss):
-    if(int(qty) > 0):
+def submitOrder(ticker, side, notional, take_profit, stop_loss):
+    if(int(notional) > 0):
         try:
             alpaca.submit_order(
                 symbol=ticker,
                 side=side,
                 type='market',
-                qty=qty,
+                notional=notional,
                 time_in_force='day',
                 order_class='bracket',
                 take_profit=dict(
@@ -93,14 +98,14 @@ def submitOrder(ticker, side, qty, take_profit, stop_loss):
                     limit_price=stop_loss,
                 )
             )
-            print("Market order of | " + qty + " " +
+            print("Market order of | " + notional + " " +
                   ticker + " " + side + " | completed.")
         except Exception as e:
             print("Error: {}".format(e))
-            print("Order of | " + qty + " " + ticker +
+            print("Order of | " + notional + " " + ticker +
                   " " + side + " | did not go through.")
     else:
-        print("Quantity is 0, order of | " + qty +
+        print("Quantity is 0, order of | " + notional +
               " " + ticker + " " + side + " | not completed.")
 
 
@@ -112,8 +117,9 @@ def marketClosedTime():
     return closingTime
 
 
-def isMarkedClosed(closingTime):
-    return closingTime <= datetime.datetime.utcnow().timestamp()
+def isMarkedClosed():
+    # return closingTime <= datetime.datetime.utcnow().timestamp()
+    return datetime.datetime.now().time() >= datetime.time(21, 0, 0)
 
 
 def main():
@@ -130,10 +136,10 @@ def main():
         checkTweets()
         sleep(2.0)
 
-    #     if isMarkedClosed(closingTime):
-    #         print("Market is closed.")
-    #         marketClosed = True
-    #         break
+        if isMarkedClosed():
+            print("Market is closed.")
+            # marketClosed = True
+            break
 
     # if marketClosed:
     #     ids = []

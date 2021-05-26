@@ -43,6 +43,7 @@ pycparser==2.20
 pyOpenSSL==20.0.1
 python-binance==0.7.10
 python-dateutil==2.8.1
+python-dotenv==0.17.1
 python-engineio==4.2.0
 python-socketio==5.0.4
 python-twitter-v2==0.3.3
