@@ -48,21 +48,6 @@ def checkTweets():
         return
 
 
-# # Wait for market to open.
-# def awaitMarketOpen():
-#     isOpen = alpaca.get_clock().is_open
-#     if(not isOpen):
-#         clock = alpaca.get_clock()
-#         openingTime = clock.next_open.replace(
-#             tzinfo=datetime.timezone.utc).timestamp()
-#         currTime = clock.timestamp.replace(
-#             tzinfo=datetime.timezone.utc).timestamp()
-#         timeToOpen = (openingTime - currTime)
-#         print(str(timeToOpen / 60) + " minutes until market open.")
-#         print("Sleeping until market open...")
-#         sleep(timeToOpen)
-
-
 # Wait for market to open.
 def awaitMarketOpen():
     isOpen = datetime.datetime.utcnow().time() >= datetime.time(13, 30, 0)
