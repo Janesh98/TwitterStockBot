@@ -3,7 +3,7 @@ name: Heroku Run
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '15 13 * * 1-5'
+    - cron:  '30 12 * * 1-5'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
