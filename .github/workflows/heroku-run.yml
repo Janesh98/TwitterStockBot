@@ -14,4 +14,4 @@ jobs:
     - name: Heroku Run
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku run:detached python3 bot.py
+      run: heroku run:detached -a secret-earth-49917 python3 bot.py
