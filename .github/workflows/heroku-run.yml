@@ -1,0 +1,19 @@
+name: Heroku Run
+
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '12 10 * * 1-5'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to Heroku
+      env: 
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku login
+    - name: Heroku Run
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku run python3 bot.py
