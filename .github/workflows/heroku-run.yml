@@ -3,7 +3,7 @@ name: Heroku Run
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '12 10 * * 1-5'
+    - cron:  '14 9 * * 1-5'
 
 jobs:
   run:
