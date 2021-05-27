@@ -52,6 +52,8 @@ def connect_to_endpoint(url, headers, data):
 
 
 def submit_order(ticker, side, notional, buy_target, take_profit, stop_loss):
+    print("Buying ~${} of {} at {}, with take profit {} and stop loss {}".format(
+        notional, ticker, buy_target, take_profit, stop_loss))
     url = create_url()
     headers = create_headers()
     data = create_data(ticker, side, notional,

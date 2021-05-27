@@ -80,6 +80,8 @@ def main():
             # marketClosed = True
             break
 
+    print("Exiting...")
+
     # if marketClosed:
     #     ids = []
     #     return main()
