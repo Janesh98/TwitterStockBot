@@ -20,19 +20,20 @@ def create_headers():
 
 
 def create_data(ticker, side, notional, buy_target, take_profit, stop_loss):
-    qty = float(notional) // float(buy_target)
+    qty = notional // buy_target
     data = {
         "symbol": ticker,
         "side": side,
-        "type": 'market',
+        "type": 'limit',
         "qty": qty,
-        "time_in_force": 'day',
+        "time_in_force": 'gtc',
+        "limit_price": buy_target,
         "order_class": 'bracket',
         "take_profit": {
             "limit_price": take_profit
         },
         "stop_loss": {
-            "stop_price": stop_loss,
+            "stop_price": stop_loss + 0.01,
             "limit_price": stop_loss,
         }
     }

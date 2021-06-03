@@ -22,12 +22,11 @@ def analyse(s):
     s = s.split(" ")
 
     ticker = s[2][1:].strip()
-    buy_target = s[4].split("\n")[0][2:].strip()
-    sell_target = s[6][1:].strip()
-    stop_loss = s[14].split("\n")[0][1:].strip()
+    buy_target = float(s[4].split("\n")[0][2:].strip())
+    sell_target = float(s[6][1:].strip())
+    stop_loss = float(s[14].split("\n")[0][1:].strip())
 
-    # submitOrder('TSLA', 'buy', '1', '1000.0', '69.69')
-    submit_order(ticker, 'buy', '1000', buy_target, sell_target, stop_loss)
+    submit_order(ticker, 'buy', 1000.0, buy_target, sell_target, stop_loss)
 
 
 def checkTweets():
