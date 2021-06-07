@@ -21,6 +21,7 @@ def create_headers():
 
 def create_data(ticker, side, notional, buy_target, take_profit, stop_loss):
     qty = notional // buy_target
+    stop_price = stop_loss - 0.01 if side == 'buy' else stop_loss + 0.01
     data = {
         "symbol": ticker,
         "side": side,
@@ -33,7 +34,7 @@ def create_data(ticker, side, notional, buy_target, take_profit, stop_loss):
             "limit_price": take_profit
         },
         "stop_loss": {
-            "stop_price": stop_loss + 0.01,
+            "stop_price": stop_price,
             "limit_price": stop_loss,
         }
     }

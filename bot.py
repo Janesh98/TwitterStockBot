@@ -58,7 +58,7 @@ def awaitMarketOpen():
         sleep(timeToOpen.total_seconds())
 
 
-def isMarkedClosed():
+def isMarketClosed():
     return datetime.datetime.utcnow().time() >= datetime.time(20, 0, 0)
 
 
@@ -74,7 +74,7 @@ def main():
         checkTweets()
         sleep(2.0)
 
-        if isMarkedClosed():
+        if isMarketClosed():
             print("Market is closed.")
             # marketClosed = True
             break
