@@ -6,8 +6,7 @@ from alpaca import submit_order
 
 load_dotenv()
 
-start_time = datetime.datetime.utcnow().replace(
-    hour=15, minute=30, second=0).strftime("%Y-%m-%dT%H:%M:%SZ")
+start_time = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
 
 ids = []
 
