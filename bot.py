@@ -76,7 +76,7 @@ def main():
     while True:
         checkTweets()
         updateStartTime()
-        sleep(5.0)
+        sleep(2.0)
 
         if isMarketClosed():
             print("Market is closed.")
